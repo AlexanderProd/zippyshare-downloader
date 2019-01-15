@@ -1,0 +1,23 @@
+{
+  "name": "zippyshare-downloader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AlexanderProd/zippyshare-downloader",
+  "author": "Alexander Hoerl <alexander.horl2@live.de>",
+  "license": "MIT",
+  "bin": {
+    "kurly": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "nodemon": "^1.18.7"
+  },
+  "dependencies": {
+    "cli-progress": "^2.1.1",
+    "command-line-args": "^5.0.2",
+    "decrypt-dlc": "^1.0.0"
+  }
+}
