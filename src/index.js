@@ -26,6 +26,7 @@ const readLine = (prompt, type) => new Promise((res) => {
 });
 
 const main = async () => {
+  let file = options.file || await readLine('Enter file location');
   /* const spinner = ora('Downloading latest algorithm...').start();
   await spawn(
     'curl', [
@@ -34,7 +35,6 @@ const main = async () => {
       'https://raw.githubusercontent.com/ffluegel/zippyshare/master/zippyshare.sh'
     ]
   );
-  let file = options.file || await readLine('Enter file location');
   spinner.succeed(); */
 
   if (file.indexOf('.dlc') > -1) {
