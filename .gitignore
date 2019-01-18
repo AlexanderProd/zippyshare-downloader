@@ -3,6 +3,8 @@
 /**/yarn.lock
 /**/dist
 .DS_Store
+clean.sh
 *.txt
 *.dlc
 *.tmp
+*.rar
