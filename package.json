@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "command-line-args": "^5.0.2",
-    "decrypt-dlc": "^1.0.0"
+    "decrypt-dlc": "^1.0.0",
+    "ora": "^3.0.0"
   }
 }
