@@ -26,7 +26,7 @@ const readLine = (prompt, type) => new Promise((res) => {
 });
 
 const main = async () => {
-  const spinner = ora('Downloading latest algorithm...').start();
+  /* const spinner = ora('Downloading latest algorithm...').start();
   await spawn(
     'curl', [
       '-o', 
@@ -35,7 +35,7 @@ const main = async () => {
     ]
   );
   let file = options.file || await readLine('Enter file location');
-  spinner.succeed();
+  spinner.succeed(); */
 
   if (file.indexOf('.dlc') > -1) {
     const spinner = ora('Decrypting DLC...').start();
