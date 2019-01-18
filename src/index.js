@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const commandLineArgs = require('command-line-args');
-const { exec, spawn } = require('child_process');
+const { spawn } = require('child_process');
 const decrypt = require('decrypt-dlc');
 const readline =  require('readline');
 const { writeFile } = require('fs');
@@ -25,16 +25,7 @@ const readLine = (prompt, type) => new Promise((res) => {
   });
 });
 
-const decryptDlc = (file) => {
-  console.log('Unpacking dlc file...')
-  decrypt.upload(file, (err, response) => {
-    const links = response.success.links;
-    writeFile('urls.txt', String(links).replace(/,/g, '\n'), 'utf-8', () => {return});
-  });
-};
-
 const main = async () => {
-  console.log('Downloading latest algorithm...');
   await spawn(
     'curl', [
       '-o', 
@@ -43,12 +34,16 @@ const main = async () => {
     ]
   );
   let file = options.file || await readLine('Enter file location');
-
-  if(file.indexOf('.dlc') > -1){
-    await decryptDlc(file);
-    file = 'urls.txt';
-  };
-
-  spawn('./src/zippyshare.sh', [file], { stdio: 'inherit' });
-}
+  
+  if (file.indexOf('.dlc') > -1) {
+    decrypt.upload(file, (err, response) => {
+      const links = response.success.links;
+      writeFile('urls.txt', String(links).replace(/,/g, '\n'), 'utf-8', () => {
+        spawn('./src/zippyshare.sh', ['urls.txt'], { stdio: 'inherit' });
+      });
+    });
+  } else {
+    spawn('./src/zippyshare.sh', [file], { stdio: 'inherit' });
+  }
+};
 main();
