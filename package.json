@@ -1,10 +1,16 @@
 {
   "name": "zippyshare-downloader",
+  "description": "A simple command line app to batch download zippyshare links found inside a dlc or txt file.",
+  "keywords": ["cli", "zippyshare", "downloader", "dlc", "container", "curl"],
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/AlexanderProd/zippyshare-downloader",
   "author": "Alexander Hoerl <alexander.horl2@live.de>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexanderProd/zippyshare-downloader/issues"
+  },
+  "homepage": "https://github.com/AlexanderProd/zippyshare-downloader",
   "bin": {
     "zippyshare-load": "src/index.js"
   },
