@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 const commandLineArgs = require('command-line-args');
 const { spawn } = require('child_process');
-const decrypt = require('decrypt-dlc');
+const { upload } = require('decrypt-dlc');
 const readline =  require('readline');
 const { writeFile } = require('fs');
+const ora = require('ora');
 
 const optionDefinitions = [
   { name: 'file', alias: 'f', type: String },
-  { name: 'outdir', alias: 'd', type: String, defaulOption: '.' },
 ];
 
 const options = commandLineArgs(optionDefinitions);
@@ -26,6 +26,7 @@ const readLine = (prompt, type) => new Promise((res) => {
 });
 
 const main = async () => {
+  const spinner = ora('Downloading latest algorithm...').start();
   await spawn(
     'curl', [
       '-o', 
@@ -34,16 +35,25 @@ const main = async () => {
     ]
   );
   let file = options.file || await readLine('Enter file location');
-  
+  spinner.succeed();
+
   if (file.indexOf('.dlc') > -1) {
-    decrypt.upload(file, (err, response) => {
+    const spinner = ora('Decrypting DLC...').start();
+    upload(file, (err, response) => {
       const links = response.success.links;
       writeFile('urls.txt', String(links).replace(/,/g, '\n'), 'utf-8', () => {
+        spinner.succeed();
         spawn('./src/zippyshare.sh', ['urls.txt'], { stdio: 'inherit' });
       });
+      if (err) {
+        spinner.fail();
+        console.error(err);
+      }
     });
   } else {
     spawn('./src/zippyshare.sh', [file], { stdio: 'inherit' });
+    return process.exit();
   }
 };
+
 main();
